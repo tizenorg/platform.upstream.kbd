@@ -11,25 +11,9 @@ Source2:        kbd-latsun-fonts.tar.bz2
 Source3:        kbd-latarcyrheb-16-fixed.tar.bz2
 Source4:        fr-dvorak.tar.bz2
 Source5:        kbd-latarcyrheb-32.tar.bz2
-# Patch0: puts additional information into man pages
-Patch0:         kbd-1.15-keycodes-man.patch
-# Patch1: sparc modifications
-Patch1:         kbd-1.15-sparc.patch
-# Patch2: adds default unicode font to unicode_start script
-Patch2:         kbd-1.15-unicode_start.patch
-# Patch3: adds resizecon binary also to the x86_64 arch
-Patch3:         kbd-1.15-resizecon-x86_64.patch
-# Patch4: default keymap in Fedora uses a little bit different name...
-Patch4:         kbd-1.15-defkeymap.patch
-# Patch5: fix of tranlation file broken after new tarball release
-Patch5:         kbd-1.15.3-fix-es-translation.patch
-# Patch6: add missing dumpkeys option to man page
-Patch6:         kbd-1.15.3-dumpkeys-man.patch
-# Patch7: already accepted by upstream
-Patch7:         kbd-1.15.3-loadkeys-d.patch
 
-BuildRequires:  bison,
-BuildRequires:  flex,
+BuildRequires:  bison
+BuildRequires:  flex
 BuildRequires:  gettext
 Requires:       %{name}-misc = %{version}
 
@@ -48,14 +32,6 @@ keymaps etc. Please note that %{name}-misc is not helpful without kbd.
 
 %prep
 %setup -q -a 2 -a 3 -a 4 -a 5
-%patch0 -p1 -b .keycodes-man
-%patch1 -p1 -b .sparc
-%patch2 -p1 -b .unicode_start
-%patch3 -p1 -b .resizecon_x86_64
-%patch4 -p1 -b .defkeymap
-%patch5 -p1 -b .fix-es-fixtranslation
-%patch6 -p1 -b .dumpkeys-man
-%patch7 -p1 -b .loadkeys-d
 
 # 7-bit maps are obsolete; so are non-euro maps
 pushd data/keymaps/i386
