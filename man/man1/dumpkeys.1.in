@@ -156,6 +156,14 @@ output of
 .BR dumpkeys .
 .LP
 .TP
+.B \-1 \-\-separate-lines
+This forces
+.B dumpkeys
+to write one line per (modifier,keycode) pair. It prefixes the word
+.I plain
+for plain keycodes.
+.LP
+.TP
 .B \-\-funcs-only
 When this option is given,
 .B dumpkeys
