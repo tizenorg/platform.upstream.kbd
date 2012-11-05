@@ -38,6 +38,10 @@ to showkey(1), the command
 .RE
 will assign the keycode 112 to it, and then loadkeys(1) can be used
 to define the function of this key.
+
+USB keyboards have standardized keycodes and
+.B setkeycodes
+doesn't affect them at all.
 .LP
 Some older kernels might hardwire a low scancode range to the
 equivalent keycodes; setkeycodes will fail when you try to remap
@@ -56,6 +60,14 @@ None.
 .SH BUGS
 The keycodes of X have nothing to do with those of Linux.
 Unusual keys can be made visible under Linux, but not under X.
+
+.B setkeycodes
+affects only the "first" input device
+that has modifiable scancode-to-keycode mapping.
+If there is more than one such device,
+.B setkeycodes
+cannot change the mapping of other devices than the "first" one.
+
 .SH "SEE ALSO"
 .I "dumpkeys (1), loadkeys (1), showkey (1), getkeycodes (8)"
 
