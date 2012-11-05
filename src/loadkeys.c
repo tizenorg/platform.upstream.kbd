@@ -2958,7 +2958,7 @@ int main(int argc, char *argv[])
 		close(fd);
 	}
 
-	for (i = optind; argv[i]; i++) {
+	for (i = optind; argv[i] || optd; i++) {
 		FILE *f;
 		char *ev;
 
@@ -2974,6 +2974,7 @@ int main(int argc, char *argv[])
 		if (optd) {
 			/* first read default map - search starts in . */
 			optd = 0;
+			i--;
 			if ((f = findfile(DEFMAP, dirpath, suffixes)) == NULL) {
 				fprintf(stderr, _("Cannot find %s\n"), DEFMAP);
 				exit(EXIT_FAILURE);
