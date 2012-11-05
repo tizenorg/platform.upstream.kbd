@@ -80,6 +80,19 @@ corresponds to what the keyboard hardware did send. So, if you want
 to know the scan codes sent by various keys it is better to boot a
 2.4 kernel. Since 2.6.9 there also is the boot option atkbd.softraw=0
 that tells the 2.6 kernel to return the actual scan codes.
+
+.SH NOTES
+The raw scan codes are available only on AT and PS/2 keyboards,
+and even then they are disabled unless the
+.B atkbd.softraw=0
+kernel parameter is used.
+When the raw scan codes are not available, the kernel uses a fixed built-in
+table to produce scan codes from keycodes.  Thus,
+.BR setkeycodes (8)
+can affect the output of
+.B showkey
+in scan code dump mode.
+
 .SH "SEE ALSO"
 .BR loadkeys (1),
 .BR dumpkeys (1),
