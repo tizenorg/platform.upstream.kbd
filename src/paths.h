@@ -21,7 +21,7 @@
 # define DEFMAP "sunkeymap.kmap"
 # define KERNDIR "/usr/src/linux/drivers/sbus/char"
 #else
-# define DEFMAP "defkeymap.kmap"
+# define DEFMAP "defkeymap.map"
 # define KERNDIR "/usr/src/linux/drivers/char"
 #endif
 
