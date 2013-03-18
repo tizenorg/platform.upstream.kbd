@@ -5,7 +5,7 @@ Summary:        Tools for configuring the console (keyboard, virtual terminals, 
 
 License:        GPL-2.0+
 Url:            http://ftp.altlinux.org/pub/people/legion/kbd
-Group:          System Environment/Base
+Group:          System/Base
 Source0:        ftp://ftp.altlinux.org/pub/people/legion/kbd/kbd-%{version}.tar.bz2
 Source2:        kbd-latsun-fonts.tar.bz2
 Source3:        kbd-latarcyrheb-16-fixed.tar.bz2
