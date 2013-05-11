@@ -90,6 +90,7 @@ ln -s openvt %{buildroot}%{_bindir}/open
 %docs_package
 
 %files
+%license COPYING
 %{_bindir}/*
 
 %files misc
