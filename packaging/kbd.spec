@@ -11,6 +11,7 @@ Source2:        kbd-latsun-fonts.tar.bz2
 Source3:        kbd-latarcyrheb-16-fixed.tar.bz2
 Source4:        fr-dvorak.tar.bz2
 Source5:        kbd-latarcyrheb-32.tar.bz2
+Source1001: 	kbd.manifest
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -32,6 +33,7 @@ keymaps etc. Please note that %{name}-misc is not helpful without kbd.
 
 %prep
 %setup -q -a 2 -a 3 -a 4 -a 5
+cp %{SOURCE1001} .
 
 # 7-bit maps are obsolete; so are non-euro maps
 pushd data/keymaps/i386
@@ -90,9 +92,11 @@ ln -s openvt %{buildroot}%{_bindir}/open
 %docs_package
 
 %files
+%manifest %{name}.manifest
 %license COPYING
 %{_bindir}/*
 
 %files misc
+%manifest %{name}.manifest
 %{_prefix}/lib/kbd
 
