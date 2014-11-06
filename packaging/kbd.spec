@@ -1,21 +1,25 @@
 Name:           kbd
-Version:        1.15.3
+Version:        2.0.2
 Release:        0
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc
 
 License:        GPL-2.0+
 Url:            http://ftp.altlinux.org/pub/people/legion/kbd
-Group:          Base/Tools
+Group:          Base/Utilities
+#X-Vcs-Url:     git://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd.git
 Source0:        ftp://ftp.altlinux.org/pub/people/legion/kbd/kbd-%{version}.tar.bz2
 Source2:        kbd-latsun-fonts.tar.bz2
 Source3:        kbd-latarcyrheb-16-fixed.tar.bz2
 Source4:        fr-dvorak.tar.bz2
 Source5:        kbd-latarcyrheb-32.tar.bz2
-Source1001: 	kbd.manifest
+Source1001:     kbd.manifest
 
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  gettext
+BuildRequires:  pkgconfig(check)
+BuildRequires:  pam-devel
+BuildRequires:  fdupes
 Requires:       %{name}-misc = %{version}
 
 %description
@@ -38,7 +42,7 @@ cp %{SOURCE1001} .
 # 7-bit maps are obsolete; so are non-euro maps
 pushd data/keymaps/i386
 mv qwerty/fi.map qwerty/fi-old.map
-cp qwerty/fi-latin9.map qwerty/fi.map
+#cp qwerty/fi-latin9.map qwerty/fi.map
 cp qwerty/pt-latin9.map qwerty/pt.map
 cp qwerty/sv-latin1.map qwerty/se-latin1.map
 
@@ -62,8 +66,8 @@ popd
 
 
 %build
-%configure --prefix=%{_prefix} --datadir=%{_prefix}/lib/kbd --mandir=%{_mandir} --localedir=%{_datadir}/locale --disable-nls
-make %{?_smp_mflags}
+%reconfigure --prefix=%{_prefix} --datadir=%{_prefix}/lib/kbd --mandir=%{_mandir} --localedir=%{_datadir}/locale --disable-nls
+%__make %{?_smp_mflags}
 
 %install
 %make_install
@@ -72,22 +76,24 @@ make %{?_smp_mflags}
 rm -f %{buildroot}/%{_prefix}/lib/kbd/keymaps/i386/qwerty/ro_win.map.gz
 
 # Create additional name for Serbian latin keyboard
-ln -s sr-cy.map.gz %{buildroot}/%{_prefix}/lib/kbd/keymaps/i386/qwerty/sr-latin.map.gz
+ln -sf sr-cy.map.gz %{buildroot}/%{_prefix}/lib/kbd/keymaps/i386/qwerty/sr-latin.map.gz
 
 # The rhpl keyboard layout table is indexed by kbd layout names, so we need a
 # Korean keyboard
-ln -s us.map.gz %{buildroot}/%{_prefix}/lib/kbd/keymaps/i386/qwerty/ko.map.gz
+ln -sf us.map.gz %{buildroot}/%{_prefix}/lib/kbd/keymaps/i386/qwerty/ko.map.gz
 
 # Some microoptimization
 sed -i -e 's,\<kbd_mode\>,/usr/bin/kbd_mode,g;s,\<setfont\>,/usr/bin/setfont,g' \
         %{buildroot}/%{_bindir}/unicode_start
 
 # Link open to openvt
-ln -s openvt %{buildroot}%{_bindir}/open
+ln -sf openvt %{buildroot}%{_bindir}/open
 
 ## Move locale files to correct place
-#cp -r %{buildroot}/lib/kbd/locale/ %{buildroot}%{_datadir}/locale
-#rm -rf %{buildroot}/lib/kbd/locale
+#cp -r %%{buildroot}/lib/kbd/locale/ %%{buildroot}%%{_datadir}/locale
+#rm -rf %%{buildroot}/lib/kbd/locale
+
+%fdupes %{buildroot}%{_prefix}/lib/kbd
 
 %docs_package
 
@@ -99,4 +105,3 @@ ln -s openvt %{buildroot}%{_bindir}/open
 %files misc
 %manifest %{name}.manifest
 %{_prefix}/lib/kbd
-
