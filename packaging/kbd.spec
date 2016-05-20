@@ -64,8 +64,8 @@ pushd po
 rm -f gr.po gr.gmo
 popd
 
-
 %build
+%restore_fcommon
 %reconfigure --prefix=%{_prefix} --datadir=%{_prefix}/lib/kbd --mandir=%{_mandir} --localedir=%{_datadir}/locale --disable-nls
 %__make %{?_smp_mflags}
 
